@@ -141,7 +141,7 @@ impl<'a, T: 'a, V: 'a, B: 'a> Ext for Externalities<'a, T, V, B>
 	}
 
 	fn storage_at(&self, key: &H256) -> vm::Result<H256> {
-	    if self.schedule.cip1 {
+		if self.schedule.cip1 {
 			info!(target: "ext", "CIP-1: address {:#x}, key {}", self.origin_info.address, key); 
 			self.state.storage_at(&self.origin_info.address, key).map_err(Into::into)
 		} else {
