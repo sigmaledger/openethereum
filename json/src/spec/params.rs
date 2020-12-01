@@ -141,8 +141,8 @@ pub struct Params {
 	pub kip4_transition: Option<Uint>,
 	/// KIP6 activiation block height.
 	pub kip6_transition: Option<Uint>,
-    /// CIP-1 activiation block height.
-    pub cip1_transition: Option<Uint>,
+	/// CIP-1 activiation block height.
+	pub cip1_transition: Option<Uint>,
 }
 
 #[cfg(test)]
