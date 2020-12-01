@@ -20,7 +20,7 @@ use std::{cmp, sync::Arc};
 
 use ethereum_types::{H256, U256, Address, BigEndianHash};
 use parity_bytes::Bytes;
-use log::{debug, trace, warn};
+use log::{debug, trace, warn, info};
 
 use account_state::{Backend as StateBackend, State, CleanupMode};
 use common_types::{
@@ -141,7 +141,12 @@ impl<'a, T: 'a, V: 'a, B: 'a> Ext for Externalities<'a, T, V, B>
 	}
 
 	fn storage_at(&self, key: &H256) -> vm::Result<H256> {
-		self.state.storage_at(&self.origin_info.address, key).map_err(Into::into)
+	    if self.schedule.cip1 {
+			info!(target: "ext", "CIP-1: address {:#x}, key {}", self.origin_info.address, key); 
+			self.state.storage_at(&self.origin_info.address, key).map_err(Into::into)
+		} else {
+			self.state.storage_at(&self.origin_info.address, key).map_err(Into::into)
+		}
 	}
 
 	fn set_storage(&mut self, key: H256, value: H256) -> vm::Result<()> {
