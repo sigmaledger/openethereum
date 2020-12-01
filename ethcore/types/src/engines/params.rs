@@ -117,6 +117,8 @@ pub struct CommonParams {
 	pub kip4_transition: BlockNumber,
 	/// Number of first block where KIP-6 rules begin. Only has effect if Wasm is activated.
 	pub kip6_transition: BlockNumber,
+    /// Number of first block where CIP-1 rules begin.
+    pub cip1_transition: BlockNumber,
 	/// Gas limit bound divisor (how much gas limit can change per block)
 	pub gas_limit_bound_divisor: U256,
 	/// Registrar contract address.
@@ -211,6 +213,7 @@ impl CommonParams {
 			if let Some(version) = self.wasm_version {
 				schedule.versions.insert(version, vm::VersionedSchedule::PWasm);
 			}
+            schedule.cip1 = block_number >= self.cip1_transition;
 		}
 	}
 
@@ -359,6 +362,10 @@ impl From<ethjson::spec::Params> for CommonParams {
 				BlockNumber::max_value,
 				Into::into
 			),
+            cip1_transition: p.cip1_transition.map_or_else(
+                BlockNumber::max_value,
+                Into::into
+            ),
 		}
 	}
 }
