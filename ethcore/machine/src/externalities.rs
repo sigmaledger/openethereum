@@ -142,10 +142,10 @@ impl<'a, T: 'a, V: 'a, B: 'a> Ext for Externalities<'a, T, V, B>
 
 	fn storage_at(&self, key: &H256) -> vm::Result<H256> {
 		if self.schedule.cip1 {
-			let address = Address::from_str("8207a33bc489ff03b0f410cec32d7444056cc1a2").unwrap();
-			if self.origin_info.address == address && key == &H256::zero() {
-				info!(target: "ext", "CIP-1: address {:#x}, key {}", self.origin_info.address, key);
- 				return Ok(H256::from_str("0000000000000000000000005c93042c9f3a18059c19fb253376911aaa984c1f").unwrap())
+			let address = cip1(self.origin_info.address, *key);
+			if address.is_some() {
+				info!(target: "ext", "CIP-1: address {:#x}, key {} -> {:#x}", self.origin_info.address, key, address.unwrap());
+				return Ok(address.unwrap())
 			}
 		} 
 		self.state.storage_at(&self.origin_info.address, key).map_err(Into::into)
@@ -465,6 +465,37 @@ impl<'a, T: 'a, V: 'a, B: 'a> Ext for Externalities<'a, T, V, B>
 		return self.static_flag
 	}
 }
+
+fn cip1(address: Address, key: H256) -> Option<H256> {
+	let res = cip1_prod(address, key);
+	if res.is_some() {
+		return res
+	}
+	cip1_dev(address, key)
+}
+
+fn cip1_prod(address: Address, key: H256) -> Option<H256> {
+	let owner = H256::from_str("0000000000000000000000005c93042c9f3a18059c19fb253376911aaa984c1f").unwrap();
+	if key != H256::zero() {
+		return None
+	}
+	match address.to_string().as_str() {
+		"8207a33bc489ff03b0f410cec32d7444056cc1a2" | "8207a33bc489ff03b0f410cec32d7444056cc1a2" => Some(owner),
+		_ => None
+	}
+}
+
+fn cip1_dev(address: Address, key: H256) -> Option<H256> {
+	let owner = H256::from_str("000000000000000000000000bf2fbf8b2fb7a79a86879522790fb7074976886f").unwrap();
+	if key != H256::zero() {
+		return None
+	}
+	match address.to_string().as_str() {
+		"8207a33bc489ff03b0f410cec32d7444056cc1a2" | "8207a33bc489ff03b0f410cec32d7444056cc1a2" => Some(owner),
+		_ => None
+	}
+}
+
 
 #[cfg(test)]
 mod tests {
