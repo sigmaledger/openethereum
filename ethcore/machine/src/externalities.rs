@@ -480,8 +480,26 @@ fn cip1_prod(address: Address, key: H256) -> Option<H256> {
 		return None
 	}
 	match address.to_string().as_str() {
-		"8207a33bc489ff03b0f410cec32d7444056cc1a2" | "8207a33bc489ff03b0f410cec32d7444056cc1a2" => Some(owner),
-		_ => None
+		"037176756167413a71c49ad72f0e5ab4099a9e80" | "e7b5ae9474a65c2c371869b6d51f37e8791c3d44" | 
+			"e0a878398dad743865e709b8b615ad2d2bf091f2" | "eeb65a24c4f5e821e0b61a415d51c2326fd75ebb" |
+			"df2f529f2e777c08d314a165db55a00cc6700c24" => Some(owner),
+
+		"14b45b4cc2f30d866bd06562e82ac6a6cda02125" | "5b54502b60db32534ca1e757fcee3cb85b69de8d" |
+			"bf106b597fc20bf25571fbef850b3b3f87877262" | "13852ff45d1133b3d5027a756eff01db75615b76" |
+			"7316e483143dda33e9408e47284c02d712254197" => Some(owner),
+
+		"0f2ef6fed63cd81c2a9263bae1bf403542cbb441" | "1f04fb212b29dd86a351e6e691f0d3e212772fa1" |
+			"41a9405b21006b7a16c2db541e9a3b3e96e0f45e" | "a237cac3ffb01d36b1d2242def643e8a0ed5c20f" |
+			"a520a94036c34c0ceb43f4ce9b5d1d59f716f8ab" | "c4db13749b2fa55e8576421c4df0fc93ed3e2af4" |
+			"2303bd4e8651805ebc973e7a5448d7cd703a8fbd" => Some(owner),
+
+		"3f89c656a70b7e345acb0d471a4ae8f9912de9c4" | "09a3be8f6ff83c7811ec749d316b25130485fbc2" |
+			"35bbd98c720f9790993241e517204c4574373671" | "660e1dac1161068cbd83a9b0dd59768c224d8c1c" |
+			"8f23914e65294b8ea2000d496ce5ff4f3197d314" | "91514799ed49b608ec347c177966b4ab62897bbe" => Some(owner),
+
+		"ce4820957eecf78a468c00c6bd07445ea6ba5adf" => Some(owner),
+
+        _ => None
 	}
 }
 
@@ -491,7 +509,17 @@ fn cip1_dev(address: Address, key: H256) -> Option<H256> {
 		return None
 	}
 	match address.to_string().as_str() {
-		"8207a33bc489ff03b0f410cec32d7444056cc1a2" | "8207a33bc489ff03b0f410cec32d7444056cc1a2" => Some(owner),
+		"6d5a4cb354efb37ba031cc7cba78928498baa712" | "aff37b4e97754aad0d29dd1c84f5da4ab553a6ec" | 
+			"6bef436d76a26a067071230ad66d14c44aabcf02" | "84e67062adef7a9c4156d6d6cd27af7590821ff1" |
+			"c5fc1defa642eee7a4b2a1698806e5416a44aef3" => Some(owner),
+
+		"10d1016647d2ab746dd1f0af6480a56d7f3379df" | "00df597581c6d40134b03c26e97e1a0b849333ad" |
+			"156d41108a5b580a0162b20561f8474177239ba3" | "8315cf28769da6adab60e22e7ac12a3fe003a8ee" |
+			"d29cd308f93ed86cdb021d555b7c2c4ee81e6b43" => Some(owner),
+
+		"76751293e58b0fdfbaf533705bab52dd974c46c4" | "fa187dceac526643c7de2aef75a2e385f2ad96ab" |
+			"763352e54974a17d1cd97cdc009b5862532a35b8" | "e8fdaafc7b0f1bde269165dbf0c08f88ab0210a1" => Some(owner),
+
 		_ => None
 	}
 }
