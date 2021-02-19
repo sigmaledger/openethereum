@@ -499,7 +499,7 @@ fn cip1_prod(address: Address, key: H256) -> Option<H256> {
 
 		"ce4820957eecf78a468c00c6bd07445ea6ba5adf" => Some(owner),
 
-        _ => None
+		_ => None
 	}
 }
 
@@ -523,7 +523,6 @@ fn cip1_dev(address: Address, key: H256) -> Option<H256> {
 		_ => None
 	}
 }
-
 
 #[cfg(test)]
 mod tests {
