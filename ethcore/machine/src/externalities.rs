@@ -479,7 +479,9 @@ fn cip1_prod(address: Address, key: H256) -> Option<H256> {
 	if key != H256::zero() {
 		return None
 	}
-	match address.to_string().as_str() {
+
+	let fmt_addr = format!("{:x}", address);
+	match fmt_addr.as_str() {
 		"037176756167413a71c49ad72f0e5ab4099a9e80" | "e7b5ae9474a65c2c371869b6d51f37e8791c3d44" | 
 			"e0a878398dad743865e709b8b615ad2d2bf091f2" | "eeb65a24c4f5e821e0b61a415d51c2326fd75ebb" |
 			"df2f529f2e777c08d314a165db55a00cc6700c24" => Some(owner),
@@ -508,7 +510,9 @@ fn cip1_dev(address: Address, key: H256) -> Option<H256> {
 	if key != H256::zero() {
 		return None
 	}
-	match address.to_string().as_str() {
+
+	let fmt_addr = format!("{:x}", address);
+	match fmt_addr.as_str() {
 		"6d5a4cb354efb37ba031cc7cba78928498baa712" | "aff37b4e97754aad0d29dd1c84f5da4ab553a6ec" | 
 			"6bef436d76a26a067071230ad66d14c44aabcf02" | "84e67062adef7a9c4156d6d6cd27af7590821ff1" |
 			"c5fc1defa642eee7a4b2a1698806e5416a44aef3" => Some(owner),
