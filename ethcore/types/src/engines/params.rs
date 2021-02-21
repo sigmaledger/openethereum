@@ -117,6 +117,18 @@ pub struct CommonParams {
 	pub kip4_transition: BlockNumber,
 	/// Number of first block where KIP-6 rules begin. Only has effect if Wasm is activated.
 	pub kip6_transition: BlockNumber,
+	/// Number of first block where CIP-1 rules begin.
+	pub cip1_transition1: BlockNumber,
+	/// Number of first block where CIP-1 rules end.
+	pub cip1_disable_transition1: BlockNumber,
+	/// Number of first block where CIP-1 rules begin.
+	pub cip1_transition2: BlockNumber,
+	/// Number of first block where CIP-1 rules end.
+	pub cip1_disable_transition2: BlockNumber,
+	/// Number of first block where CIP-1 rules begin.
+	pub cip1_transition3: BlockNumber,
+	/// Number of first block where CIP-1 rules end.
+	pub cip1_disable_transition3: BlockNumber,
 	/// Gas limit bound divisor (how much gas limit can change per block)
 	pub gas_limit_bound_divisor: U256,
 	/// Registrar contract address.
@@ -211,6 +223,9 @@ impl CommonParams {
 			if let Some(version) = self.wasm_version {
 				schedule.versions.insert(version, vm::VersionedSchedule::PWasm);
 			}
+			schedule.cip1 = ((block_number >= self.cip1_transition1) && !(block_number >= self.cip1_disable_transition1)) ||
+				((block_number >= self.cip1_transition2) && !(block_number >= self.cip1_disable_transition2)) ||
+				((block_number >= self.cip1_transition3) && !(block_number >= self.cip1_disable_transition3));
 		}
 	}
 
@@ -358,6 +373,30 @@ impl From<ethjson::spec::Params> for CommonParams {
 			kip6_transition: p.kip6_transition.map_or_else(
 				BlockNumber::max_value,
 				Into::into
+			),
+			cip1_transition1: p.cip1_transition1.map_or_else(
+				BlockNumber::max_value,
+				Into::into
+			),
+			cip1_disable_transition1: p.cip1_disable_transition1.map_or_else(
+				BlockNumber::max_value,
+				Into::into,
+			),
+			cip1_transition2: p.cip1_transition2.map_or_else(
+				BlockNumber::max_value,
+				Into::into
+			),
+			cip1_disable_transition2: p.cip1_disable_transition2.map_or_else(
+				BlockNumber::max_value,
+				Into::into,
+			),
+			cip1_transition3: p.cip1_transition3.map_or_else(
+				BlockNumber::max_value,
+				Into::into
+			),
+			cip1_disable_transition3: p.cip1_disable_transition3.map_or_else(
+				BlockNumber::max_value,
+				Into::into,
 			),
 		}
 	}
